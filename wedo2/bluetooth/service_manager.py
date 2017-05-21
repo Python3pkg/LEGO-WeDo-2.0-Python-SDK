@@ -19,14 +19,14 @@ class ServiceManager:
         self.io.subscribe_to_char(attached_io_uuid, self.handle_attached_io_data)
         
         # End subscription when the service for port 6 (RGB LED light) has been found
-        while 6 not in self.services_data.keys():
+        while 6 not in list(self.services_data.keys()):
             pass
             
         self.io.unsubscribe_from_char(attached_io_uuid)
         self.create_services(self.services_data)
 
     def create_services(self, services_data):
-        for connect_id in services_data.keys():
+        for connect_id in list(services_data.keys()):
             connect_info = services_data[connect_id]
             service = LegoServiceFactory.create(connect_info, self.io)
             self.services.add(service)
